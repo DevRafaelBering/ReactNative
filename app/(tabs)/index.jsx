@@ -6,7 +6,6 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import {
   Image,
-  Platform,
   Pressable,
   StyleSheet,
   ActivityIndicator,
@@ -14,7 +13,7 @@ import {
 } from "react-native";
 import ClickableItem from "@/components/ClickableItem";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [tvTop, setTvTop] = useState([]);
@@ -50,17 +49,15 @@ export default function HomeScreen() {
 
   const renderMovieItem = ({ item }) => (
     <ClickableItem
-      title={item.title}
       imageUrl={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-      onPress={() => console.log("Movie clicked:", item.title)}
+      onPress={() => navigation.navigate("Details", { item })} // Navegar para a tela de detalhes
     />
   );
 
   const renderSeriesItem = ({ item }) => (
     <ClickableItem
-      title={item.name}
       imageUrl={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-      onPress={() => console.log("Series clicked:", item.name)}
+      onPress={() => navigation.navigate("Details", { item })} // Navegar para a tela de detalhes
     />
   );
 
@@ -142,7 +139,6 @@ const styles = StyleSheet.create({
     left: 0,
     position: "absolute",
   },
-
   buttone: {
     backgroundColor: "#545454",
     borderRadius: 50,
